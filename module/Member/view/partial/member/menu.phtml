@@ -3,7 +3,7 @@
   <?php if ($user = $this->identity()): ?>
     <a href="<?php echo $this->url('member', array('action' => 'portal',)); ?>" class="list-group-item <?php if($this->route=='member' && ($this->action=='portal' || $this->action=='video' || $this->action=='create' || $this->action=='tag-cash')): ?>active<?php endif; ?>">Checkup/Consultations</a>
     <?php if ($user->role == 'patient'): ?>
-      <a href="<?php echo $this->url('member', array('action' => 'medical-records',)); ?>" class="list-group-item <?php if($this->route=='member' && $this->action=='medical-records'): ?>active<?php endif; ?>">My Medical Records</a>
+      <a href="<?php echo $this->url('member', array('action' => 'pharmaceutical',)); ?>" class="list-group-item <?php if($this->route=='member' && $this->action=='pharmaceutical'): ?>active<?php endif; ?>">Pharmaceutical Products</a>
       <a href="<?php echo $this->url('member', array('action' => 'incentives',)); ?>" class="list-group-item <?php if($this->route=='member' && $this->action=='incentives'): ?>active<?php endif; ?>">Incentives</a>
     <?php endif; ?>
   <?php endif; ?>

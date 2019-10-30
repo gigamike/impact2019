@@ -16,6 +16,12 @@ class IndexController extends AbstractActionController
     return $sm->get('IncentiveMapper');
   }
 
+  public function getProductMapper()
+  {
+    $sm = $this->getServiceLocator();
+    return $sm->get('ProductMapper');
+  }
+
   public function getUserMapper()
   {
     $sm = $this->getServiceLocator();
@@ -518,4 +524,40 @@ class IndexController extends AbstractActionController
       'form' => $form,
 		));
   }
+
+  public function pharmaceuticalAction()
+  {
+    $route = $this->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch()->getMatchedRouteName();
+    $action = $this->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch()->getParam('action');
+
+    $page = $this->params()->fromRoute('page');
+    $search_by = $this->params()->fromRoute('search_by') ? $this->params()->fromRoute('search_by') : '';
+
+    $searchFilter = array();
+    if (!empty($search_by)) {
+      $searchFilter = (array) json_decode($search_by);
+    }
+
+    $user = $this->getUserMapper()->getUser($this->identity()->id);
+    if(!$user){
+      $this->flashMessenger()->setNamespace('error')->addMessage('You need to login or register first.');
+      return $this->redirect()->toRoute('login');
+    }
+
+    $order = array('created_datetime DESC');
+    $paginator = $this->getProductMapper()->fetch(true, $searchFilter, $order);
+    $paginator->setCurrentPageNumber($page);
+    $paginator->setItemCountPerPage(12);
+
+		return new ViewModel(array(
+      'route' => $route,
+      'action' => $action,
+      'user' => $user,
+
+      'paginator' => $paginator,
+      'search_by' => $search_by,
+      'page' => $page,
+      'searchFilter' => $searchFilter,
+		));
+	}
 }

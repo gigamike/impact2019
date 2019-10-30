@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 31, 2019 at 12:24 AM
+-- Generation Time: Oct 31, 2019 at 01:39 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.1.31
 
@@ -347,6 +347,35 @@ INSERT INTO `medical_record` (`id`, `name`, `description`, `tags`, `created_date
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` longtext,
+  `price` decimal(10,2) NOT NULL,
+  `created_datetime` datetime NOT NULL,
+  `created_user_id` bigint(10) UNSIGNED NOT NULL,
+  `modified_datetime` datetime DEFAULT NULL,
+  `modified_user_id` bigint(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `description`, `price`, `created_datetime`, `created_user_id`, `modified_datetime`, `modified_user_id`) VALUES
+(1, 'Zykast', 'ZYKAST /10/5MG /TAB / 30 / 30', '300.00', '0000-00-00 00:00:00', 0, NULL, NULL),
+(2, 'Esomeprazole Magnesium', '10/5MG /TAB / 30 / 30', '500.00', '0000-00-00 00:00:00', 0, NULL, NULL),
+(3, 'Mometamax', 'Mometamax Otic Suspension is available in 7.5 g, 15 g, 30 g and 215 g plastic bottles.', '1000.00', '0000-00-00 00:00:00', 0, NULL, NULL),
+(4, 'Zegen', 'Cefuroxime (as axetil) 250 mg or 500 mg', '550.00', '0000-00-00 00:00:00', 0, NULL, NULL),
+(5, 'Acyclovir ', 'Ointment', '1150.00', '0000-00-00 00:00:00', 0, NULL, NULL),
+(6, 'Paracetamol & Caffeine 500/65', '10 Tablets', '150.00', '0000-00-00 00:00:00', 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -403,6 +432,15 @@ ALTER TABLE `medical_record`
   ADD KEY `created_user_id` (`created_user_id`);
 
 --
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_user_id` (`created_user_id`),
+  ADD KEY `price` (`price`),
+  ADD KEY `name` (`name`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -426,6 +464,12 @@ ALTER TABLE `incentive`
 --
 ALTER TABLE `medical_record`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`

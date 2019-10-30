@@ -13,6 +13,7 @@ return array(
         'Incentive',
         'Api',
         'TagCash',
+        'Product',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
